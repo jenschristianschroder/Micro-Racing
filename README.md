@@ -20,6 +20,14 @@ python3 -m http.server 8000 --directory dist
 
 Open http://localhost:8000. Any static web host can serve `dist/` unchanged. No build step is needed.
 
+## Deploy to GitHub Pages
+
+The `Deploy to GitHub Pages` workflow validates JavaScript and runs the engine tests before publishing only `dist/`. Pull requests run validation without deploying. Pushes to `main` deploy automatically; you can also select **Actions → Deploy to GitHub Pages → Run workflow**, using the `main` branch.
+
+One-time setup: in **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**. Then merge the workflow PR into `main`. If the workflow was merged before enabling Pages, rerun it manually after enabling Pages. The workflow uses GitHub's built-in token; no personal access token or repository secrets are needed.
+
+The deployed URL appears in the workflow's `github-pages` environment. Assets use relative paths, so the game works under the repository's Pages subdirectory without a build or base-path rewrite.
+
 ## Controls
 
 Cars accelerate automatically. Steering is relative to the car; the camera follows its heading. Brake before tight bends. Complete checkpoints in order, then cross the finish line.
