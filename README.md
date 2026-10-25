@@ -84,4 +84,3 @@ Tests cover all 24 computer-driver/circuit combinations completing their races, 
 - `tests/progression.test.mjs`: progression and save-migration tests.
 
 All artwork is drawn locally with canvas and SVG. No external assets or packages are required.
-
