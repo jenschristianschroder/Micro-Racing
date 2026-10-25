@@ -14,3 +14,50 @@
 #game.duo .race-title>span{font-size:8px;margin-top:3px}
 #game.duo #countdown{opacity:0}
 #game.duo .keyboard-help{display:none}
+
+/* Local career progress and the expanded circuit collection. */
+.career{border:1px solid var(--line);border-radius:9px;background:#202821;padding:24px;margin:3px 0 28px}
+.career-header{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.career h2{font-size:24px;letter-spacing:-.7px;line-height:1.2;margin:9px 0 0}
+.career-local{font:9px monospace;letter-spacing:1px;color:var(--mint)}
+.career-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:23px 0}
+.career-stats>div{border-left:2px solid #52755b;padding-left:14px}
+.career-stats strong{display:block;font:30px monospace;color:#e5edce}
+.career-stats strong small{font-size:14px;color:#8e9e8b}
+.career-stats span{display:block;font-size:11px;color:#aab7a5;margin-top:5px}
+.next-unlock{border-top:1px solid #3a4738;padding-top:20px;display:grid;grid-template-columns:1fr 1.2fr;gap:24px;align-items:center}
+.next-unlock strong{display:block;margin:6px 0 8px;font-size:17px;color:var(--mint)}
+.unlock-explainer{display:block;max-width:350px;color:#aab7a5;font-size:11px;line-height:1.6}
+.unlock-routes{display:flex;gap:18px;align-items:center}
+.unlock-routes>label{flex:1;font-size:10px;color:#c2cdbb;line-height:1.6}
+.unlock-routes label>span{display:block;font:15px monospace;color:#eff2e3;margin:5px 0 8px}
+.unlock-routes>b{font:9px monospace;color:var(--orange)}
+progress{appearance:none;width:100%;height:5px;border:0;border-radius:4px;overflow:hidden;background:#3d493a}
+progress::-webkit-progress-bar{background:#3d493a;border-radius:4px}
+progress::-webkit-progress-value{background:var(--mint);border-radius:4px}
+progress::-moz-progress-bar{background:var(--mint);border-radius:4px}
+.career-complete{font-size:12px;color:var(--mint);margin:0;border-top:1px solid #3a4738;padding-top:15px}
+.track-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.track{min-width:0}.track-copy strong{line-height:1.4}.track-copy span{line-height:1.5}
+.track-status{display:block;font-size:9px;line-height:1.5;margin-top:7px;color:#b7c9ae}
+.track.locked .track-art{filter:saturate(.3);opacity:.7}.track.locked .track-status{color:#a9b0a5}
+.track-lock{position:absolute;right:6px;bottom:8px;background:#131d17dd;color:#e3e9dc;padding:4px 6px;border-radius:3px;font:8px monospace;letter-spacing:1px}
+.track-details{border:1px solid var(--line);border-radius:7px;background:var(--panel);padding:16px;margin-top:14px}
+.track-detail-title{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.track-detail-title strong{font-size:13px}.track-detail-title>span{font:10px monospace;color:var(--mint)}
+.track-details p{color:var(--muted);font-size:12px;line-height:1.6;margin:9px 0 14px}
+.medal-targets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.medal-targets>span{background:#171d18;border-radius:4px;padding:9px;font-size:10px}
+.medal-targets b{margin-left:6px;font:11px monospace;color:#e1e8d8}
+.bronze{color:#d7a57b}.silver{color:#c8d8e1}.gold{color:#eed183}
+.track-details>small{font-size:10px;color:var(--muted);line-height:1.5;display:block}
+.lock-requirement{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;line-height:1.6;color:#e5b796}
+.primary:disabled{background:#b8bdae;color:#555f4e;transform:none}
+.race-card{align-self:start;position:sticky;top:20px}
+.medal-reward{font:12px monospace;letter-spacing:1px;padding:10px 0}
+.unlock-reward{border:1px solid #63846e;border-radius:6px;padding:14px;margin:12px 0;background:#2b3d2f}
+.unlock-reward>span{display:block;color:var(--mint);font:9px monospace;letter-spacing:1px}
+.unlock-reward strong{display:block;margin-top:7px;font-size:16px;line-height:1.5}
+.overlay-card .result-progress{font:10px monospace;color:#a8b89f}
+@media(max-width:1000px){.track-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.career-local{display:none}}
+@media(max-width:680px){.career{padding:19px;margin-top:0}.career h2{font-size:22px}.career-stats{gap:8px;padding:22px 0}.career-stats>div{padding-left:8px}.career-stats strong{font-size:25px}.career-stats span{font-size:9px}.next-unlock{grid-template-columns:1fr;gap:16px}.unlock-routes{gap:14px}.unlock-routes>label{font-size:10px}.track-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.track-art{height:110px}.track-copy strong{font-size:12px}.track-copy span{font-size:9px}.track-status{font-size:10px}.race-card{position:static}.medal-targets{gap:6px}.medal-targets>span{padding:8px;font-size:9px}.medal-targets b{font-size:10px;margin-left:3px}}

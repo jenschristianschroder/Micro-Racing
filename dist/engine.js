@@ -1,7 +1,12 @@
 export const TRACKS = [
  {id:'coast',name:'Coastline Run',tag:'THE OPENING LAP',difficulty:'Easy',theme:'coast',description:'Sea breeze. Sweeping bends. Full throttle.',points:[[380,250],[800,180],[1260,260],[1380,560],[1150,850],[680,900],[260,740],[210,440]],width:130},
  {id:'desert',name:'Dust Valley',tag:'TAKE THE INSIDE LINE',difficulty:'Medium',theme:'desert',description:'Warm asphalt and a wicked double hairpin.',points:[[330,260],[730,200],[1200,240],[1380,500],[1150,660],[900,480],[710,720],[420,900],[200,680],[180,420]],width:116},
- {id:'night',name:'Midnight Loop',tag:'AFTER HOURS',difficulty:'Hard',theme:'night',description:'Neon corners. Close calls. One more lap.',points:[[330,230],[800,180],[1300,250],[1380,500],[1100,540],[1160,850],[760,930],[560,680],[240,800],[180,500]],width:110}
+ {id:'night',name:'Midnight Loop',tag:'AFTER HOURS',difficulty:'Hard',theme:'night',description:'Neon corners. Close calls. One more lap.',points:[[330,230],[800,180],[1300,250],[1380,500],[1100,540],[1160,850],[760,930],[560,680],[240,800],[180,500]],width:110},
+ {id:'alpine',name:'Alpine Pass',tag:'THIN AIR. FAST LAPS.',difficulty:'Medium',theme:'alpine',description:'Snow-dusted peaks and long, flowing switchbacks.',points:[[350,230],[760,170],[1230,230],[1370,450],[1160,660],[920,870],[530,900],[230,720],[300,470]],width:120,unlock:{races:3,medals:1}},
+ {id:'harbor',name:'Harbor Sprint',tag:'BETWEEN THE DOCKS',difficulty:'Medium',theme:'harbor',description:'Dockside straights with sharp warehouse corners.',points:[[340,230],[820,200],[1260,220],[1350,460],[1100,500],[1070,820],[790,900],[470,820],[220,760],[200,450]],width:116,unlock:{races:6,medals:2}},
+ {id:'forest',name:'Pinewood Rally',tag:'INTO THE GREEN',difficulty:'Hard',theme:'forest',description:'Find a rhythm through a winding forest ribbon.',points:[[340,220],[680,180],[950,330],[1260,260],[1390,540],[1190,800],[850,900],[640,720],[340,840],[170,600],[260,400]],width:110,unlock:{races:10,medals:3}},
+ {id:'canyon',name:'Redrock Canyon',tag:'HOLD YOUR NERVE',difficulty:'Hard',theme:'canyon',description:'Sun-baked rock, deep bends, and a narrow racing line.',points:[[330,220],[780,160],[1300,260],[1400,510],[1120,650],[1230,880],[820,930],[660,640],[420,800],[200,700],[180,400]],width:106,unlock:{races:15,medals:4}},
+ {id:'summit',name:'Summit Grand Prix',tag:'THE FINAL CLIMB',difficulty:'Expert',theme:'summit',description:'A technical finale for your growing trophy cabinet.',points:[[350,210],[730,160],[990,300],[1300,220],[1400,480],[1190,620],[1270,860],[910,920],[710,690],[440,870],[190,690],[220,400]],width:104,unlock:{races:20,medals:5}}
 ];
 export const COLORS=['#ff704a','#74e6ca','#b5a2ff','#f4ce6e'];
 export const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
