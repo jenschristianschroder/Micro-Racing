@@ -49,7 +49,7 @@ Cars accelerate automatically. Steering is relative to the car; the camera follo
 | Recover | R or on-screen reset | On-screen reset |
 | Pause | P or Escape | P or Escape |
 
-Touch controls appear for each driver. Recovery resets to the previous checkpoint and adds three seconds. Leaving the tab pauses the whole race.
+Touch controls appear for each driver. Drag the steering slider for proportional steering: small movements make gentle turns and the ends apply full steering. Releasing it returns steering to the centre. Each split-screen driver has an independent slider, oriented toward them. Brake and recovery buttons remain available alongside it. Recovery resets to the previous checkpoint and adds three seconds. Leaving the tab pauses the whole race.
 
 ## Privacy and storage
 
