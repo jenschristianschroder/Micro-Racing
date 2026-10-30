@@ -5,6 +5,8 @@ A dependency-free, mobile-first browser racing game. No game accounts, ads, trac
 ## Play modes
 
 - **Quick race:** three laps against three on-device computer opponents.
+- **Power-up race:** three laps against three computer opponents with boost, shield, and oil pickups.
+- **Power-up duel:** the same power-ups in face-to-face local two-player racing, with independent inventory, controls, and steering-side preferences.
 - **Time trial:** three-lap personal records stored in the browser, plus shareable circuit-and-time challenge links.
 - **Two players:** simultaneous local split-screen racing on one device, with independent touch and keyboard controls. This is not live online multiplayer. Both drivers can race for up to 30 seconds after the first finishes; an unfinished driver is marked DNF.
 
@@ -18,9 +20,21 @@ Meadow Cross and Quarry Cut each offer two optional narrow-road shortcuts, highl
 
 **All 10 tracks are unlocked immediately in every mode**, including challenge links. No race or medal requirement applies. Clearing local records keeps every circuit available, and existing race counts, preferences, medals, and best times carry forward.
 
-All three modes count toward completed races. A two-player event counts once when at least one driver finishes; abandoned races do not count. Only time trials earn medals. Bronze, silver, and gold thresholds are shown for every track and apply to the full three-lap time, including recovery penalties. Improving a medal on the same circuit does not increase the distinct-circuit count.
+All five modes count toward completed races. A two-player event counts once when at least one driver finishes; abandoned races do not count. Only time trials earn medals. Bronze, silver, and gold thresholds are shown for every track and apply to the full three-lap time, including recovery penalties. Improving a medal on the same circuit does not increase the distinct-circuit count.
 
 The garage shows race totals, medaled circuits, and the complete track collection. Results announce earned medals and personal bests.
+
+## Power-ups
+
+Power-ups appear only in Power-up race and Power-up duel. Each driver starts with one boost. Collect the labelled, coloured pickups on the circuit; they respawn after seven seconds of running race time. Boosts and oil are activated with their on-screen buttons or keyboard; shields activate on collection.
+
+| Pickup | Effect |
+| --- | --- |
+| B / gold | Adds a two-second boost charge, up to three charges. Braking and grass still slow you down. |
+| S / mint | Grants a six-second shield that blocks one oil hit and clears an existing slow effect. |
+| O / purple | Adds an oil drop, up to two. Drop it behind your car to slow a rival for three seconds. Oil expires after eight seconds and cannot hit its owner. |
+
+Effects and respawns freeze while paused. Restarting resets all pickups, charges, and hazards. Power-up finishes count toward race totals but never change time-trial records or medals. Quick race, ordinary two-player racing, and time trials keep their original rules.
 
 ## Run locally
 
@@ -50,6 +64,8 @@ Cars accelerate automatically. Steering is relative to the car; the camera follo
 | Brake | Space or down arrow | S |
 | Recover | R or on-screen reset | On-screen reset |
 | Pause | P or Escape | P or Escape |
+| Use boost (power-up modes) | B | N |
+| Drop oil (power-up modes) | V | M |
 
 Touch controls appear for each driver. Drag the steering slider for proportional steering: small movements make gentle turns and the ends apply full steering. Releasing it returns steering to the centre. Each split-screen driver has an independent, wide slider, oriented toward them. Choose **Steering side → Left / Right** in Settings or while paused. Player 1 (also used for solo) and Player 2 save separate preferences on this device; sides are relative to each driver, including the rotated top view. Brake and recovery move to the opposite side. Brake and recovery buttons remain available alongside it. Recovery resets to the previous checkpoint and adds three seconds. Leaving the tab pauses the whole race.
 
@@ -67,11 +83,12 @@ Requires Node.js 20+.
 npm test
 ```
 
-Tests cover all 30 computer-driver/circuit combinations completing their races, checkpoint enforcement, independent controls, recovery penalties, finish ordering, time formatting, legacy-save migration, immediate access to all circuits, shortcut distance and width, ordered shortcut traversal, recovery inside lanes, exact medal thresholds, replay behavior, and invalid or unfinished results.
+Tests cover all 30 computer-driver/circuit combinations completing their races, checkpoint enforcement, independent controls, recovery penalties, finish ordering, time formatting, legacy-save migration, immediate access to all circuits, shortcut distance and width, ordered shortcut traversal, recovery inside lanes, exact medal thresholds, replay behavior, invalid or unfinished results, power-up timing and inventory, shield/oil interactions, and powered computer-driver races.
 
 ## Files
 
 - `dist/engine.js`: track geometry, physics, computer drivers, checkpoints, ranking.
+- `dist/powerups.js`: pickups, inventory, boost activation, oil hazards, shields, and computer-driver power-up decisions.
 - `dist/progression.js`: save migration, medal targets, track availability, and completion rewards.
 - `dist/app.js`: canvas rendering, race lifecycle, controls, storage, challenge sharing.
 - `dist/style.css`: responsive garage and race interface.

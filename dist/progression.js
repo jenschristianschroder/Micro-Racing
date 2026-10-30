@@ -1,4 +1,4 @@
-import { TRACKS } from './engine.js';
+import { TRACKS } from './engine.js?v=power-race-1';
 
 // Targets are full three-lap times in seconds, including recovery penalties.
 export const TARGETS = {
@@ -64,7 +64,7 @@ export function recordFinish(progress, { trackId, mode, time, completed }) {
   let personalBest = false;
   // Abandoned races and invalid results award no progress.
   if (!completed || !track || !isUnlocked(track, next) ||
-      !['race', 'trial', 'duo'].includes(mode) || !Number.isFinite(time) || time <= 0) {
+      !['race', 'trial', 'duo', 'power', 'powerduo'].includes(mode) || !Number.isFinite(time) || time <= 0) {
     return { progress: next, personalBest, medal: previousMedal, medalImproved: false, newlyUnlocked: [] };
   }
   next.races = Math.min(Number.MAX_SAFE_INTEGER, next.races + 1);

@@ -86,3 +86,14 @@ progress::-moz-progress-bar{background:var(--mint);border-radius:4px}
 .steering-side-choice:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
 
 .race-overlay{align-items:safe center}
+
+.mode-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.power-actions{display:flex;gap:6px;margin-bottom:10px}
+.touch-button.power-button{width:57px;height:44px;font:bold 9px monospace}
+.touch-button.boost{border-color:#f4ce6e;color:#f4ce6e}
+.touch-button.oil{border-color:#b594df;color:#d1b6f0}
+.touch-button.power-button:disabled{opacity:.4;transform:none;cursor:default}
+.power-readout{position:absolute;top:151px;left:20px;max-width:270px;padding:7px 10px;background:#15251de6;border:1px solid #f4ce6e66;border-radius:6px;font:9px monospace;color:#f4ce6e;pointer-events:none}
+#game.duo .power-readout{top:109px}
+@media(max-width:680px){.mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.power-readout{top:141px;left:14px;font-size:8px;max-width:210px}#game.duo .power-readout{top:95px}}
+@media(max-height:500px){.power-readout{top:116px;font-size:8px}#game.duo .power-readout{top:85px}.touch-button.power-button{height:36px}.power-actions{margin-bottom:6px}}
