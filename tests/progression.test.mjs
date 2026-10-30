@@ -5,8 +5,8 @@ import { TARGETS, normalizeProgress, medalFor, medalCount, isUnlocked, progressi
 const fresh=()=>normalizeProgress(null);
 const finish=(p,extra={})=>recordFinish(p,{trackId:'coast',mode:'race',time:70,completed:true,...extra});
 
-test('all twelve circuits are available immediately, including for legacy saves',()=>{
- assert.equal(TRACKS.length,12);
+test('all ten circuits are available immediately, including for legacy saves',()=>{
+ assert.equal(TRACKS.length,10);
  for(const p of [fresh(),normalizeProgress({races:1,best:{coast:40}}),normalizeProgress({races:20})]){
   assert.deepEqual(progressionSummary(p).unlocked.map(t=>t.id),TRACKS.map(t=>t.id));
   assert.equal(progressionSummary(p).next,null);
@@ -21,7 +21,7 @@ test('legacy saves retain race totals, preferences, and best trial times',()=>{
 });
 test('invalid stored values cannot grant medals or race counts',()=>{
  for(const v of [null,[],false,'bad',{races:-1,best:{coast:-1}},{races:Infinity,best:{coast:'20',desert:null,night:NaN}},{races:2.7,best:{unknown:10}}]){
-  const p=normalizeProgress(v);assert.equal(p.races,0);assert.equal(medalCount(p),0);assert.equal(progressionSummary(p).unlocked.length,12);
+  const p=normalizeProgress(v);assert.equal(p.races,0);assert.equal(medalCount(p),0);assert.equal(progressionSummary(p).unlocked.length,10);
  }
 });
 test('every circuit records finishes in every mode without requiring prior races',()=>{
@@ -34,9 +34,9 @@ test('every circuit records finishes in every mode without requiring prior races
 test('time-trial medals count distinct circuits and improvements retain one medal',()=>{
  let p=fresh();
  for(const t of TRACKS){p=finish(p,{trackId:t.id,mode:'trial',time:TARGETS[t.id].bronze}).progress;}
- assert.equal(p.races,12);assert.equal(medalCount(p),12);
+ assert.equal(p.races,10);assert.equal(medalCount(p),10);
  const upgrade=finish(p,{mode:'trial',time:TARGETS.coast.gold});
- assert.equal(medalCount(upgrade.progress),12);assert.equal(upgrade.medal,'gold');assert.equal(upgrade.medalImproved,true);
+ assert.equal(medalCount(upgrade.progress),10);assert.equal(upgrade.medal,'gold');assert.equal(upgrade.medalImproved,true);
  assert.deepEqual(normalizeProgress(JSON.parse(JSON.stringify(p))),p);
 });
 test('exact medal boundaries count and slower repeats do not overwrite records',()=>{
@@ -54,5 +54,5 @@ test('abandoned and invalid results grant no progress',()=>{
 });
 test('recordFinish leaves the prior save untouched and clearing keeps every circuit available',()=>{
  const p=fresh(),copy=structuredClone(p);finish(p,{mode:'trial',time:40});assert.deepEqual(p,copy);
- const reset=normalizeProgress(null);assert.equal(progressionSummary(reset).unlocked.length,12);assert.equal(reset.races,0);
+ const reset=normalizeProgress(null);assert.equal(progressionSummary(reset).unlocked.length,10);assert.equal(reset.races,0);
 });

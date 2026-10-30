@@ -8,17 +8,66 @@ test('players have independent controls',()=>{const t=makeTrack(TRACKS[0]),a=cre
 test('finished cars rank by time including penalties',()=>{const t=makeTrack(TRACKS[0]),a=createCar(t,0),b=createCar(t,1);a.finished=b.finished=true;a.finishTime=70;b.finishTime=66;assert.equal(raceOrder([a,b],t)[0],b)});
 test('time formatting handles missing values and minutes',()=>{assert.equal(formatTime(undefined),'—');assert.equal(formatTime(65.12),'1:05.12')});
 
-test('four new technical circuits each have twenty corners and checkpoints',()=>{
- const additions=TRACKS.slice(8);
- assert.equal(additions.length,4);
- assert.equal(new Set(TRACKS.map(t=>t.id)).size,TRACKS.length);
+const visit=(c,t,p)=>{c.x=p.x;c.y=p.y;c.speed=0;updateCar(c,t,{},0,60);};
+const reach=(c,t,gate)=>{while(c.nextGate!==gate+1)visit(c,t,t.samples[t.gates[c.nextGate]]);};
+test('new shortcut lanes are narrower and shorter than the bypassed main route',()=>{
+ const additions=TRACKS.filter(t=>t.shortcuts);
+ assert.equal(additions.length,2);
+ const length=pts=>pts.slice(1).reduce((n,p,i)=>n+Math.hypot(p.x-pts[i].x,p.y-pts[i].y),0);
  for(const def of additions){
-  assert.equal(def.turns,20);assert.equal(def.points.length,20);
-  for(let i=0;i<20;i++){
-   const a=def.points[(i+19)%20],b=def.points[i],c=def.points[(i+1)%20];
-   assert.ok(Math.abs((b[0]-a[0])*(c[1]-b[1])-(b[1]-a[1])*(c[0]-b[0]))>0,'each corner changes direction');
+  const t=makeTrack(def);assert.equal(t.shortcuts.length,2);
+  for(const lane of t.shortcuts){
+   assert.ok(lane.width<t.width/2);
+   assert.ok(length(lane.samples)<length(t.samples.slice(t.gates[lane.from],t.gates[lane.to]+1)));
+   for(const p of lane.samples)assert.ok(p.x>35&&p.x<1565&&p.y>35&&p.y<1065);
   }
-  const t=makeTrack(def);assert.equal(t.gates.length,20);
-  for(const p of t.samples){assert.ok(p.x>35&&p.x<1565&&p.y>35&&p.y<1065,'circuit stays within the world');}
+ }
+});
+test('following each complete shortcut credits only the bypassed ordered checkpoints',()=>{
+ for(const def of TRACKS.filter(t=>t.shortcuts)){
+  const t=makeTrack(def);
+  for(const lane of t.shortcuts){
+   const c=createCar(t,0);reach(c,t,lane.from);
+   const before=c.passed;
+   for(const gate of lane.gates.slice(1))visit(c,t,lane.samples[gate]);
+   assert.equal(c.shortcut,null);assert.equal(c.nextGate,(lane.to+1)%t.gates.length);
+   assert.equal(c.passed,before+lane.to-lane.from);assert.equal(c.lap,0);
+  }
+ }
+});
+test('shortcut exits and out-of-order lane checkpoints cannot bypass entrance checks',()=>{
+ for(const def of TRACKS.filter(t=>t.shortcuts)){
+  const t=makeTrack(def);
+  for(const lane of t.shortcuts){
+   const c=createCar(t,0);reach(c,t,lane.from);const before=c.passed;
+   visit(c,t,lane.samples.at(-1));assert.equal(c.passed,before);assert.equal(c.shortcut,null);
+   visit(c,t,lane.samples[lane.gates[2]]);assert.equal(c.passed,before);assert.equal(c.shortcut,null);
+   const wrong=createCar(t,0);visit(wrong,t,lane.samples[lane.gates[1]]);assert.equal(wrong.shortcut,null);assert.equal(wrong.passed,0);
+  }
+ }
+});
+test('narrow roads are drivable and recovery preserves shortcut progress with a penalty',()=>{
+ for(const def of TRACKS.filter(t=>t.shortcuts)){
+  const t=makeTrack(def);
+  for(const lane of t.shortcuts){
+   const c=createCar(t,0);reach(c,t,lane.from);
+   const p=lane.samples[lane.gates[1]];visit(c,t,p);
+   assert.equal(c.offroad,false);assert.ok(c.shortcut);
+   const state={...c.shortcut},passed=c.passed;recoverCar(c,t);
+   assert.equal(c.x,p.x);assert.equal(c.y,p.y);assert.equal(c.penalty,3);
+   assert.deepEqual(c.shortcut,state);assert.equal(c.passed,passed);
+   visit(c,t,{x:800,y:550});assert.equal(c.offroad,true);
+  }
+ }
+});
+test('three laps using both shortcuts still require the full lap checkpoint count',()=>{
+ for(const def of TRACKS.filter(t=>t.shortcuts)){
+  const t=makeTrack(def),c=createCar(t,0);let steps=0;
+  while(!c.finished&&steps++<100){
+   const lane=t.shortcuts.find(s=>c.nextGate===s.from+1);
+   if(lane){for(const gate of lane.gates.slice(1))visit(c,t,lane.samples[gate]);}
+   else visit(c,t,t.samples[t.gates[c.nextGate]]);
+  }
+  assert.equal(c.finished,true);assert.equal(c.lap,3);assert.equal(c.passed,36);
  }
 });

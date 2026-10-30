@@ -8,13 +8,15 @@ A dependency-free, mobile-first browser racing game. No game accounts, ads, trac
 - **Time trial:** three-lap personal records stored in the browser, plus shareable circuit-and-time challenge links.
 - **Two players:** simultaneous local split-screen racing on one device, with independent touch and keyboard controls. This is not live online multiplayer. Both drivers can race for up to 30 seconds after the first finishes; an unfinished driver is marked DNF.
 
-Twelve circuits: Coastline Run, Dust Valley, Midnight Loop, Alpine Pass, Harbor Sprint, Pinewood Rally, Redrock Canyon, Summit Grand Prix, Tidal Switchbacks, Foundry Twenty, Viper Ridge, and Evergreen Labyrinth.
+Ten circuits: Coastline Run, Dust Valley, Midnight Loop, Alpine Pass, Harbor Sprint, Pinewood Rally, Redrock Canyon, Summit Grand Prix, Meadow Cross, and Quarry Cut.
 
-The four new expert circuits each have 20 turns, mixing chicanes, switchbacks, and infield bends. Each uses 20 ordered checkpoints between corners and a start line on a straight.
+The original eight circuits have roads about 30% wider than their original layouts, providing more room to steer and overtake. The wider road also increases the drivable area used by the physics.
+
+Meadow Cross and Quarry Cut each offer two optional narrow-road shortcuts, highlighted in mint on the track and mini-map. Each lane is less than half the width of the main road and saves distance. Pass its entrance on the main circuit, then follow every lane checkpoint to its exit to earn the bypassed checkpoint credit. Driving straight to the exit or across the grass does not count. Recovery inside a shortcut returns to the previous lane checkpoint with the usual penalty. Computer opponents follow the wide main circuit.
 
 ## Tracks and medals
 
-**All 12 tracks are unlocked immediately in every mode**, including challenge links. No race or medal requirement applies. Clearing local records keeps every circuit available, and existing race counts, preferences, medals, and best times carry forward.
+**All 10 tracks are unlocked immediately in every mode**, including challenge links. No race or medal requirement applies. Clearing local records keeps every circuit available, and existing race counts, preferences, medals, and best times carry forward.
 
 All three modes count toward completed races. A two-player event counts once when at least one driver finishes; abandoned races do not count. Only time trials earn medals. Bronze, silver, and gold thresholds are shown for every track and apply to the full three-lap time, including recovery penalties. Improving a medal on the same circuit does not increase the distinct-circuit count.
 
@@ -65,7 +67,7 @@ Requires Node.js 20+.
 npm test
 ```
 
-Tests cover all 36 computer-driver/circuit combinations completing their races, checkpoint enforcement, independent controls, recovery penalties, finish ordering, time formatting, legacy-save migration, immediate access to all circuits, 20-turn circuit geometry, exact medal thresholds, replay behavior, and invalid or unfinished results.
+Tests cover all 30 computer-driver/circuit combinations completing their races, checkpoint enforcement, independent controls, recovery penalties, finish ordering, time formatting, legacy-save migration, immediate access to all circuits, shortcut distance and width, ordered shortcut traversal, recovery inside lanes, exact medal thresholds, replay behavior, and invalid or unfinished results.
 
 ## Files
 
