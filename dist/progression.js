@@ -15,9 +15,12 @@ export const TARGETS = {
 };
 
 export function normalizeProgress(value) {
-  const result = { version: 2, best: {}, sound: false, races: 0 };
+  const result = { version: 2, best: {}, sound: false, races: 0, steeringSides: ['left', 'left'] };
   if (!value || typeof value !== 'object') return result;
   result.sound = value.sound === true;
+  if (Array.isArray(value.steeringSides)) {
+    result.steeringSides = [0, 1].map(i => value.steeringSides[i] === 'right' ? 'right' : 'left');
+  }
   if (Number.isSafeInteger(value.races) && value.races >= 0) result.races = value.races;
   if (value.best && typeof value.best === 'object') {
     for (const track of TRACKS) {

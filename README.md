@@ -51,7 +51,7 @@ Cars accelerate automatically. Steering is relative to the car; the camera follo
 | Recover | R or on-screen reset | On-screen reset |
 | Pause | P or Escape | P or Escape |
 
-Touch controls appear for each driver. Drag the steering slider for proportional steering: small movements make gentle turns and the ends apply full steering. Releasing it returns steering to the centre. Each split-screen driver has an independent slider, oriented toward them. Brake and recovery buttons remain available alongside it. Recovery resets to the previous checkpoint and adds three seconds. Leaving the tab pauses the whole race.
+Touch controls appear for each driver. Drag the steering slider for proportional steering: small movements make gentle turns and the ends apply full steering. Releasing it returns steering to the centre. Each split-screen driver has an independent, wide slider, oriented toward them. Choose **Steering side → Left / Right** in Settings or while paused. Player 1 (also used for solo) and Player 2 save separate preferences on this device; sides are relative to each driver, including the rotated top view. Brake and recovery move to the opposite side. Brake and recovery buttons remain available alongside it. Recovery resets to the previous checkpoint and adds three seconds. Leaving the tab pauses the whole race.
 
 ## Privacy and storage
 

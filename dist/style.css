@@ -65,7 +65,7 @@ progress::-moz-progress-bar{background:var(--mint);border-radius:4px}
 /* Spring-centred analog steering, also rotated with the top player's panel. */
 .touch-zone{gap:12px}
 .touch-zone>div:last-child{flex-shrink:0;white-space:nowrap}
-.steering{pointer-events:auto;display:grid;gap:0;width:clamp(130px,42vw,260px);padding:10px 14px 8px;border:1px solid #ffffff50;border-radius:16px;background:#19221de6;text-align:center;touch-action:none;user-select:none;-webkit-user-select:none}
+.steering{pointer-events:auto;display:grid;gap:0;width:min(380px,60vw);min-width:0;flex-shrink:1;padding:10px 14px 8px;border:1px solid #ffffff50;border-radius:16px;background:#19221de6;text-align:center;touch-action:none;user-select:none;-webkit-user-select:none}
 .steering>span{font:bold 10px monospace;letter-spacing:2px;color:#f4f2e9}
 .steering>small{font:8px monospace;letter-spacing:1px;color:#c4d6c9}
 .steering-slider{appearance:none;-webkit-appearance:none;display:block;width:100%;height:48px;margin:0;background:transparent;cursor:ew-resize;touch-action:none}
@@ -75,3 +75,14 @@ progress::-moz-progress-bar{background:var(--mint);border-radius:4px}
 .steering-slider::-moz-range-track{height:8px;border:1px solid #ffffff55;border-radius:10px;background:linear-gradient(90deg,#81998a 49%,#f4f2e9 49%,#f4f2e9 51%,#81998a 51%)}
 .steering-slider::-moz-range-thumb{width:32px;height:32px;border:3px solid #ffd1bc;border-radius:50%;background:var(--orange);box-shadow:0 3px 8px #0006}
 @media(max-height:500px){.steering{padding-top:6px;padding-bottom:5px}.steering-slider{height:42px}}
+
+.touch-zone.steer-right{flex-direction:row-reverse}
+.steering-slider{min-width:0}
+.control-layout{min-width:0;margin:16px 0;padding:14px;border:1px solid var(--line);border-radius:8px;text-align:left}
+.control-layout legend{padding:0 6px;font-weight:bold;font-size:14px;color:var(--mint)}
+.control-layout p{margin:0 0 8px;font-size:11px;line-height:1.5;color:var(--muted)}
+.control-layout .setting-row{gap:12px}
+.steering-side-choice{font:inherit;min-height:44px;min-width:92px;padding:8px 12px;border:1px solid #657469;border-radius:6px;color:var(--text);background:#19221d}
+.steering-side-choice:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+
+.race-overlay{align-items:safe center}

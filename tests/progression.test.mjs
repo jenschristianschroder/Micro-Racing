@@ -56,3 +56,17 @@ test('recordFinish leaves the prior save untouched and clearing keeps every circ
  const p=fresh(),copy=structuredClone(p);finish(p,{mode:'trial',time:40});assert.deepEqual(p,copy);
  const reset=normalizeProgress(null);assert.equal(progressionSummary(reset).unlocked.length,10);assert.equal(reset.races,0);
 });
+
+test('steering sides default safely and persist independently through race results',()=>{
+ assert.deepEqual(fresh().steeringSides,['left','left']);
+ assert.deepEqual(normalizeProgress({races:8}).steeringSides,['left','left']);
+ for(const sides of [['right','left'],['left','right'],['right','right']]){
+  const p=normalizeProgress({steeringSides:sides,races:2,best:{coast:40}});
+  assert.deepEqual(p.steeringSides,sides);
+  assert.deepEqual(normalizeProgress(JSON.parse(JSON.stringify(p))).steeringSides,sides);
+  const r=finish(p);assert.deepEqual(r.progress.steeringSides,sides);
+  r.progress.steeringSides[0]='left';assert.deepEqual(p.steeringSides,sides);
+ }
+ for(const value of [null,'right',{},['up',false]])assert.deepEqual(normalizeProgress({steeringSides:value}).steeringSides,['left','left']);
+ assert.deepEqual(normalizeProgress({steeringSides:[null,'right']}).steeringSides,['left','right']);
+});
