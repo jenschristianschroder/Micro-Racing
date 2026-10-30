@@ -10,6 +10,10 @@ export const TARGETS = {
   forest: { gold: 45, silver: 62, bronze: 85 },
   canyon: { gold: 50, silver: 68, bronze: 95 },
   summit: { gold: 48, silver: 65, bronze: 90 },
+  tidal: { gold: 85, silver: 110, bronze: 145 },
+  foundry: { gold: 85, silver: 110, bronze: 145 },
+  viper: { gold: 90, silver: 120, bronze: 155 },
+  evergreen: { gold: 95, silver: 125, bronze: 160 },
 };
 
 export function normalizeProgress(value) {
@@ -38,8 +42,8 @@ export function medalCount(progress) {
   return TRACKS.filter(track => medalFor(track.id, progress.best[track.id])).length;
 }
 
-export function isUnlocked(track, progress) {
-  return !track.unlock || progress.races >= track.unlock.races || medalCount(progress) >= track.unlock.medals;
+export function isUnlocked(track) {
+  return TRACKS.some(candidate => candidate.id === track.id);
 }
 
 export function progressionSummary(progress) {
@@ -57,7 +61,7 @@ export function recordFinish(progress, { trackId, mode, time, completed }) {
   const unlockedBefore = new Set(progressionSummary(next).unlocked.map(track => track.id));
   const previousMedal = medalFor(trackId, next.best[trackId]);
   let personalBest = false;
-  // Abandoned races, invalid results, and locked circuits award no progress.
+  // Abandoned races and invalid results award no progress.
   if (!completed || !track || !isUnlocked(track, next) ||
       !['race', 'trial', 'duo'].includes(mode) || !Number.isFinite(time) || time <= 0) {
     return { progress: next, personalBest, medal: previousMedal, medalImproved: false, newlyUnlocked: [] };
