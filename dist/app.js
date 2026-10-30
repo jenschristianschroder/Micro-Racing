@@ -1,5 +1,5 @@
 import {TRACKS,COLORS,makeTrack,createCar,updateCar,recoverCar,raceOrder,nearest,checkpointFor,formatTime,clamp} from './engine.js';
-import { TARGETS, normalizeProgress, medalFor, progressionSummary, recordFinish } from './progression.js';
+import { TARGETS, normalizeProgress, medalFor, progressionSummary, recordFinish } from './progression.js?v=steering-sides-1';
 const $=id=>document.getElementById(id), tracks=TRACKS.map(makeTrack), storageKey='micro-racing-v1';
 let saved=normalizeProgress(null),storageOK=true;
 try { saved=normalizeProgress(JSON.parse(localStorage.getItem(storageKey)||'null')); }
