@@ -1,7 +1,5 @@
-import { angleDiff, nearest } from './engine.js?v=power-race-1';
-
 export function enablePowers(car){
- car.effects={boosts:1,oil:0,boost:0,shield:0,slow:0};
+ car.effects={boosts:1,oil:0,boost:0,shield:0,slow:0,oilFlash:0};
 }
 export function useBoost(car){
  const e=car.effects;
@@ -11,7 +9,7 @@ export function useBoost(car){
 export function dropOil(world,car){
  const e=car.effects;
  if(!world||car.finished||!e||e.oil<=0)return false;
- e.oil--;
+ e.oil--;e.oilFlash=1;
  world.oils.push({x:car.x-Math.cos(car.angle)*65,y:car.y-Math.sin(car.angle)*65,owner:car.id,life:8});
  return true;
 }
@@ -48,10 +46,10 @@ export function updatePowerRace(world,cars,track,dt){
   }
  }
  world.oils=world.oils.filter(o=>o.life>0);
+ // Every driver auto-fires available items. A boost collected during an
+ // active boost stays queued until that boost expires.
  for(const car of cars){
-  if(!car.bot||car.finished||!car.effects)continue;
-  const aim=track.samples[(nearest(track,car.x,car.y).index+25)%track.samples.length];
-  if(!car.offroad&&Math.abs(angleDiff(Math.atan2(aim.y-car.y,aim.x-car.x),car.angle))<.15)useBoost(car);
-  if(cars.some(other=>other!==car&&!other.finished&&Math.hypot(other.x-car.x,other.y-car.y)<240&&(other.x-car.x)*Math.cos(car.angle)+(other.y-car.y)*Math.sin(car.angle)<-40))dropOil(world,car);
+  if(car.finished||!car.effects)continue;
+  useBoost(car);dropOil(world,car);
  }
 }

@@ -26,13 +26,13 @@ The garage shows race totals, medaled circuits, and the complete track collectio
 
 ## Power-ups
 
-Power-ups appear only in Power-up race and Power-up duel. Each driver starts with one boost. Collect the labelled, coloured pickups on the circuit; they respawn after seven seconds of running race time. Boosts and oil are activated with their on-screen buttons or keyboard; shields activate on collection.
+Power-ups appear only in Power-up race and Power-up duel. Each driver starts with one boost. Collect the labelled, coloured pickups on the circuit; they respawn after seven seconds of running race time. All power-ups fire automatically for both players and computer opponents: boost starts as soon as available, shields activate on collection, and oil drops immediately behind the car. A boost picked up during an active boost queues until the current one expires. The starting boost fires when the race begins, after the countdown. No extra buttons or keys are needed.
 
 | Pickup | Effect |
 | --- | --- |
 | B / gold | Adds a two-second boost charge, up to three charges. Braking and grass still slow you down. |
 | S / mint | Grants a six-second shield that blocks one oil hit and clears an existing slow effect. |
-| O / purple | Adds an oil drop, up to two. Drop it behind your car to slow a rival for three seconds. Oil expires after eight seconds and cannot hit its owner. |
+| O / purple | Automatically drops oil behind your car to slow a rival for three seconds. Oil expires after eight seconds and cannot hit its owner. |
 
 Effects and respawns freeze while paused. Restarting resets all pickups, charges, and hazards. Power-up finishes count toward race totals but never change time-trial records or medals. Quick race, ordinary two-player racing, and time trials keep their original rules.
 
@@ -64,8 +64,6 @@ Cars accelerate automatically. Steering is relative to the car; the camera follo
 | Brake | Space or down arrow | S |
 | Recover | R or on-screen reset | On-screen reset |
 | Pause | P or Escape | P or Escape |
-| Use boost (power-up modes) | B | N |
-| Drop oil (power-up modes) | V | M |
 
 Touch controls appear for each driver. Drag the steering slider for proportional steering: small movements make gentle turns and the ends apply full steering. Releasing it returns steering to the centre. Each split-screen driver has an independent, wide slider, oriented toward them. Choose **Steering side → Left / Right** in Settings or while paused. Player 1 (also used for solo) and Player 2 save separate preferences on this device; sides are relative to each driver, including the rotated top view. Brake and recovery move to the opposite side. Brake and recovery buttons remain available alongside it. Recovery resets to the previous checkpoint and adds three seconds. Leaving the tab pauses the whole race.
 
@@ -88,7 +86,7 @@ Tests cover all 30 computer-driver/circuit combinations completing their races, 
 ## Files
 
 - `dist/engine.js`: track geometry, physics, computer drivers, checkpoints, ranking.
-- `dist/powerups.js`: pickups, inventory, boost activation, oil hazards, shields, and computer-driver power-up decisions.
+- `dist/powerups.js`: pickups, inventory, boost activation, oil hazards, shields, and automatic power-up activation for every driver.
 - `dist/progression.js`: save migration, medal targets, track availability, and completion rewards.
 - `dist/app.js`: canvas rendering, race lifecycle, controls, storage, challenge sharing.
 - `dist/style.css`: responsive garage and race interface.

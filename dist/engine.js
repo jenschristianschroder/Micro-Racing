@@ -48,7 +48,7 @@ export function nearest(track,x,y){let index=0,dist=Infinity;track.samples.forEa
 export function createCar(track,id,bot=false){const p=track.samples[0],side=(id%2?1:-1)*23,back=Math.floor(id/2)*48;return {id,bot,name:bot?['','','Nova','Kit'][id]||'Rival':id===0?'You':'Player 2',color:COLORS[id],x:p.x-Math.cos(p.angle)*back-Math.sin(p.angle)*side,y:p.y-Math.sin(p.angle)*back+Math.cos(p.angle)*side,angle:p.angle,speed:0,lap:0,nextGate:1,passed:0,finished:false,finishTime:null,penalty:0,offroad:false,distance:0,shortcut:null};}
 export function updateCar(c,track,input,dt,time,laps=3){
  if(c.finished)return;
- if(c.effects)for(const key of ['boost','shield','slow'])c.effects[key]=Math.max(0,c.effects[key]-dt);
+ if(c.effects)for(const key of ['boost','shield','slow','oilFlash'])c.effects[key]=Math.max(0,c.effects[key]-dt);
  const n=nearest(track,c.x,c.y); c.offroad=n.distance>track.width*.46&&!track.shortcuts.some(lane=>nearest(lane,c.x,c.y).distance<=lane.width*.46);
  let steer=input.steer||0,brake=!!input.brake;
  if(c.bot){const ahead=track.samples[(n.index+Math.round(10+c.speed/25))%track.samples.length];const diff=angleDiff(Math.atan2(ahead.y-c.y,ahead.x-c.x),c.angle);steer=clamp(diff*2.5,-1,1);brake=Math.abs(diff)>.65;}

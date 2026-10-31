@@ -1,4 +1,4 @@
-import { TRACKS } from './engine.js?v=power-race-1';
+import { TRACKS } from './engine.js?v=auto-power-1';
 
 // Targets are full three-lap times in seconds, including recovery penalties.
 export const TARGETS = {

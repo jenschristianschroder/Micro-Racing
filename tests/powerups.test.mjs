@@ -26,15 +26,15 @@ test('pickups cap inventory, respawn after seven running seconds, and shield cle
  world.pickups=[{x:c.x,y:c.y,type:'shield',cooldown:0}];c.effects.slow=2;
  updatePowerRace(world,[c],t,0);assert.equal(c.effects.shield,6);assert.equal(c.effects.slow,0);
  world.pickups=[{x:c.x,y:c.y,type:'oil',cooldown:0}];c.effects.oil=2;
- updatePowerRace(world,[c],t,0);assert.equal(c.effects.oil,2);
+ updatePowerRace(world,[c],t,0);assert.equal(c.effects.oil,1);assert.equal(world.oils.length,1);
 });
 test('oil ignores its owner, shield blocks one hit, and an unshielded rival slows',()=>{
  const t=track(),a=createCar(t,0),b=createCar(t,1),world=createPowerRace(t,[a,b]);world.pickups=[];
- a.effects.oil=2;assert.equal(dropOil(world,a),true);
+ a.effects.oil=1;assert.equal(dropOil(world,a),true);
  const spot=world.oils[0];a.x=b.x=spot.x;a.y=b.y=spot.y;b.effects.shield=6;
  updatePowerRace(world,[a,b],t,0);
  assert.equal(a.effects.slow,0);assert.equal(b.effects.shield,0);assert.equal(b.effects.slow,0);assert.equal(world.oils.length,0);
- assert.equal(dropOil(world,a),true);b.x=world.oils[0].x;b.y=world.oils[0].y;
+ a.effects.oil=1;assert.equal(dropOil(world,a),true);b.x=world.oils[0].x;b.y=world.oils[0].y;
  updatePowerRace(world,[a,b],t,0);assert.equal(b.effects.slow,3);assert.equal(a.effects.slow,0);
  assert.equal(dropOil(world,a),false);
  updateCar(b,t,{},3,3);assert.equal(b.effects.slow,0);
@@ -60,4 +60,32 @@ test('all computer opponents complete every circuit with power-ups enabled',()=>
   while(cars.some(c=>!c.finished)&&time<180){time+=1/60;cars.forEach(c=>updateCar(c,t,{},1/60,time));updatePowerRace(world,cars,t,1/60);}
   for(const c of cars){assert.ok(c.finished,`${def.id} bot ${c.id} missed gate ${c.nextGate}`);assert.equal(c.passed,36);}
  }
+});
+
+test('both human drivers and computer rivals fire starting boosts without input',()=>{
+ const t=track(),cars=[createCar(t,0),createCar(t,1),createCar(t,2,true)],world=createPowerRace(t,cars);
+ world.pickups=[];
+ for(const c of cars){assert.equal(c.effects.boost,0);assert.equal(c.effects.boosts,1);}
+ updatePowerRace(world,cars,t,0);
+ for(const c of cars){assert.equal(c.effects.boost,2);assert.equal(c.effects.boosts,0);}
+});
+test('collected oil fires immediately behind each player with no rival nearby',()=>{
+ const t=track();
+ for(const id of [0,1]){
+  const c=createCar(t,id),world=createPowerRace(t,[c]);
+  world.pickups=[{x:c.x,y:c.y,type:'oil',cooldown:0}];
+  updatePowerRace(world,[c],t,0);
+  assert.equal(c.effects.oil,0);assert.equal(c.effects.oilFlash,1);assert.equal(world.oils.length,1);
+  assert.equal(world.oils[0].owner,id);
+  assert.ok(Math.abs(Math.hypot(c.x-world.oils[0].x,c.y-world.oils[0].y)-65)<.001);
+ }
+});
+test('boost pickups activate immediately or queue until the active boost expires',()=>{
+ const t=track(),c=createCar(t,0),world=createPowerRace(t,[c]);c.effects.boosts=0;
+ world.pickups=[{x:c.x,y:c.y,type:'boost',cooldown:0}];
+ updatePowerRace(world,[c],t,0);assert.equal(c.effects.boost,2);assert.equal(c.effects.boosts,0);
+ world.pickups[0].cooldown=0;updatePowerRace(world,[c],t,0);
+ assert.equal(c.effects.boost,2);assert.equal(c.effects.boosts,1);
+ world.pickups=[];updateCar(c,t,{},2,2);assert.equal(c.effects.boost,0);
+ updatePowerRace(world,[c],t,0);assert.equal(c.effects.boost,2);assert.equal(c.effects.boosts,0);
 });
