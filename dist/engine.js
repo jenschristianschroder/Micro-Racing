@@ -45,7 +45,7 @@ function advanceGate(c,track,time,laps){
  if(c.nextGate===1){c.lap++;if(c.lap>=laps){c.finished=true;c.finishTime=time+c.penalty;}}
 }
 export function nearest(track,x,y){let index=0,dist=Infinity;track.samples.forEach((p,i)=>{const d=(p.x-x)**2+(p.y-y)**2;if(d<dist){dist=d;index=i}});return {index,distance:Math.sqrt(dist),point:track.samples[index]};}
-export function createCar(track,id,bot=false){const p=track.samples[0],side=(id%2?1:-1)*23,back=Math.floor(id/2)*48;return {id,bot,name:bot?['','','Nova','Kit'][id]||'Rival':id===0?'You':'Player 2',color:COLORS[id],x:p.x-Math.cos(p.angle)*back-Math.sin(p.angle)*side,y:p.y-Math.sin(p.angle)*back+Math.cos(p.angle)*side,angle:p.angle,speed:0,lap:0,nextGate:1,passed:0,finished:false,finishTime:null,penalty:0,offroad:false,distance:0,shortcut:null};}
+export function createCar(track,id,bot=false,gridSlot=id){const p=track.samples[0],side=(gridSlot%2?1:-1)*23,back=Math.floor(gridSlot/2)*48;return {id,bot,name:bot?['','','Nova','Kit'][id]||'Rival':id===0?'You':'Player 2',color:COLORS[id],x:p.x-Math.cos(p.angle)*back-Math.sin(p.angle)*side,y:p.y-Math.sin(p.angle)*back+Math.cos(p.angle)*side,angle:p.angle,speed:0,lap:0,nextGate:1,passed:0,finished:false,finishTime:null,penalty:0,offroad:false,distance:0,shortcut:null};}
 export function updateCar(c,track,input,dt,time,laps=3){
  if(c.finished)return;
  if(c.effects)for(const key of ['boost','shield','slow','oilFlash'])c.effects[key]=Math.max(0,c.effects[key]-dt);
