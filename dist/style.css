@@ -87,6 +87,36 @@ progress::-moz-progress-bar{background:var(--mint);border-radius:4px}
 
 .race-overlay{align-items:safe center}
 
+/* Sharing ticket: racing decoration stays outside the QR code's quiet zone. */
+.share-game{display:inline-flex;align-items:center;gap:10px;min-height:44px;margin-top:22px;padding:11px 16px;border:1px solid #ff704a88;border-radius:5px;background:#ff704a0d;color:var(--orange);font:bold 11px monospace;letter-spacing:1px}
+.share-game:hover{background:#ff704a20;border-color:var(--orange)}
+dialog.share-dialog{width:min(460px,calc(100% - 24px));max-height:calc(100dvh - 24px);padding:28px;overflow-y:auto;overscroll-behavior:contain}
+.share-dialog .close{width:44px;height:44px;top:2px;right:2px;line-height:1}
+.share-dialog .eyebrow{padding-right:24px;font-size:9px;letter-spacing:1px}
+.share-dialog h2{margin:10px 0 8px;font-size:29px}
+.share-dialog .share-description{margin:0 0 18px;font-size:13px;line-height:1.5}
+.qr-ticket{overflow:hidden;border:1px solid #667467;border-radius:7px;background:#e9ebdf;text-align:center;color:#171b1a}
+.qr-ticket-heading{display:flex;justify-content:space-between;gap:12px;padding:11px 14px;background:#171b1a;color:#e9ebdf;font:9px monospace;letter-spacing:1px}
+.qr-ticket-heading strong{color:var(--orange)}
+.share-qr{display:grid;place-items:center;width:min(232px,100% - 28px);aspect-ratio:1;margin:14px auto 0;background:white;color:#171b1a}
+.share-qr svg{display:block;width:100%;height:auto}
+.share-qr p{padding:12px;color:#171b1a;font-size:12px}
+.qr-ticket .qr-caption{margin:10px 8px 12px;font:8px monospace;letter-spacing:.6px;color:#414d40}
+.finish-stripe{height:12px;background:conic-gradient(#171b1a 25%,#e9ebdf 0 50%,#171b1a 0 75%,#e9ebdf 0) 0 0 / 12px 12px}
+.share-link-label{display:block;margin:15px 0 6px;font:9px monospace;letter-spacing:1px;color:var(--muted)}
+.share-link{min-height:42px;font-size:12px;user-select:text;-webkit-user-select:text}
+.share-link:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.share-actions{display:flex;gap:10px;margin-top:12px}
+.share-actions .primary{flex:1;min-height:44px;padding:13px 16px}
+.share-actions .secondary{min-width:94px;min-height:44px}
+.share-dialog .share-status{font-size:12px;line-height:1.45;color:var(--mint);margin:8px 0}
+.share-status:empty{display:none}
+.home-screen{margin-top:17px;border-top:1px solid #465148;padding-top:12px}
+.home-screen summary{cursor:pointer;min-height:36px;padding:4px 0;font-size:13px;font-weight:bold;color:#e9ebdf}
+.home-screen summary:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+.share-dialog .home-screen p{font-size:12px;line-height:1.6;margin:8px 0}
+@media(max-width:380px){dialog.share-dialog{padding:24px 18px}.share-dialog h2{font-size:27px}.qr-ticket-heading{font-size:8px;letter-spacing:.5px}}
+
 .mode-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 .power-readout{position:absolute;top:151px;left:20px;max-width:270px;padding:7px 10px;background:#15251de6;border:1px solid #f4ce6e66;border-radius:6px;font:9px monospace;color:#f4ce6e;pointer-events:none}
 #game.duo .power-readout{top:109px}

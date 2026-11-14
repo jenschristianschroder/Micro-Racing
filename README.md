@@ -1,6 +1,6 @@
 # Micro Racing
 
-A dependency-free, mobile-first browser racing game. No game accounts, ads, trackers, cloud saves, or third-party scripts.
+A mobile-first browser racing game with no install or build step. No game accounts, ads, trackers, cloud saves, or remotely hosted scripts.
 
 ## Play modes
 
@@ -35,6 +35,12 @@ Power-ups appear only in Power-up race and Power-up duel. Each driver starts wit
 | O / purple | Automatically drops oil behind your car to slow a rival for three seconds. Oil expires after eight seconds and cannot hit its owner. |
 
 Effects and respawns freeze while paused. Restarting resets all pickups, charges, and hazards. Power-up finishes count toward race totals but never change time-trial records or medals. Quick race, ordinary two-player racing, and time trials keep their original rules.
+
+## Share the game
+
+Select **Share game** on the front page to display a racing-themed QR code for the game URL. Friends can scan it with their phone camera, copy the link, or use their device's share sheet when supported. The panel also includes **Add to Home Screen** instructions for iPhone/iPad and Android.
+
+After finishing a time trial, **Challenge a friend** opens the same panel with a QR code containing that circuit and target time. Sharing the game from the front page always opens the garage without forwarding an existing challenge or query parameters. QR codes are generated on the device, with no QR service or external requests. This shares the game or a time-trial challenge; two-player racing still takes place on one shared device.
 
 ## Run locally
 
@@ -89,9 +95,11 @@ Tests cover all 30 computer-driver/circuit combinations completing their races, 
 - `dist/powerups.js`: pickups, inventory, boost activation, oil hazards, shields, and automatic power-up activation for every driver.
 - `dist/progression.js`: save migration, medal targets, track availability, and completion rewards.
 - `dist/app.js`: canvas rendering, race lifecycle, controls, storage, challenge sharing.
+- `dist/sharing.js`: game/challenge links, QR rendering, and sharing dialog.
+- `dist/vendor/qrcodegen.js`: locally bundled Project Nayuki QR encoder v1.8.0 (MIT; license included in the file).
 - `dist/style.css`: responsive garage and race interface.
 - `dist/index.html`: application shell.
 - `tests/engine.test.mjs`: deterministic engine tests.
 - `tests/progression.test.mjs`: progression and save-migration tests.
 
-All artwork is drawn locally with canvas and SVG. No external assets or packages are required.
+All artwork is drawn locally with canvas and SVG. No external assets, package installation, or build step are required. The QR encoder is bundled as plain JavaScript from [Project Nayuki](https://www.nayuki.io/page/qr-code-generator-library).

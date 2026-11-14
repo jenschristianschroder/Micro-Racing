@@ -32,6 +32,8 @@ jobs:
           node --check dist/engine.js
           node --check dist/progression.js
           node --check dist/powerups.js
+          node --check dist/sharing.js
+          node --check dist/vendor/qrcodegen.js
           npm test
           test -f dist/index.html
 
